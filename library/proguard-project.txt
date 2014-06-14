@@ -1,0 +1,2 @@
+# -libraryjars /libs/lib-simplesharedpreferences.jar
+-keepclassmembers class * implements android.content.SharedPreferences.** { *; }

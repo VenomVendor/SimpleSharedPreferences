@@ -1,0 +1,10 @@
+# Custom Exclude
+.settings/
+*/bin/*
+!*/bin/*.apk
+!*/bin/*.jar
+*/bin/library.jar
+gen/
+doc/
+libs/
+*/res/.githolder
