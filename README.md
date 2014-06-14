@@ -11,8 +11,17 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
 </pre>
 
 ##Demo
-[Sample][9] <br>
+[SimpleSharedPreferencesDemo.Java][9] <br>
 [Sample.apk][10]
+
+### Other Methods
+[`public boolean incrementAppOpenedCount()`][11] // Increment App opened count
+
+[`public int getAppOpenedCount()`][12] // Get the number of times app opened
+
+`public boolean isLogEnabled()` // Log Status
+
+`public void setLogEnabled(boolean enableLog)` // default `false`
 
 ###Note
  - Can be used beside [SharedPreferences][6] without any conflict.
@@ -74,5 +83,7 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
  [6]: http://developer.android.com/training/basics/data-storage/shared-preferences.html#WriteSharedPreference "Using Shared Preferences"
  [7]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/
  [8]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/bin/
- [9]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java "Sample for SimpleSharedPreferences"
- [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/bin
+ [9]: https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L40 "Sample for SimpleSharedPreferences of all available methods"
+ [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/bin "Install for usage reference"
+[11]:https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L103
+[12]:https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L193
