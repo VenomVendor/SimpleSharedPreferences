@@ -5,8 +5,8 @@ Use SimpleSharedPreferences to avoid unnecessary code while writing and fetching
 Import [library][7], or add any one [*.jar][8] into `/libs`
 <pre>
 SimpleSharedPreferences mPreferences = new SimpleSharedPreferences(getApplicationContext());
-mPreferences.putString("STRING_KEY", "STRING_VALUE");
-mPreferences.putInt("INTEGER_KEY", 50);  // Put String
+mPreferences.putString("STRING_KEY", "STRING_VALUE");  // Put String
+mPreferences.putInt("INTEGER_KEY", 50);  // Put Int
 mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
 </pre>
 
