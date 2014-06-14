@@ -1,5 +1,5 @@
 # Android SimpleSharedPreferences
-Use [SimpleSharedPreferences][0] to avoid unnecessary code while writing and fetching from [SharedPreferences][1]
+Use SimpleSharedPreferences to avoid unnecessary code while writing and fetching from [SharedPreferences][1]
 
 ## Usage
 Import [library][7], or add any one [*.jar][8] into `/libs`
@@ -7,7 +7,7 @@ Import [library][7], or add any one [*.jar][8] into `/libs`
 SimpleSharedPreferences mPreferences = new SimpleSharedPreferences(getApplicationContext());
 mPreferences.putString("STRING_KEY", "STRING_VALUE");
 mPreferences.putInt("INTEGER_KEY", 50);  // Put String
-mPreferences.getString("STRING_KEY", mEditor"STRING_DEF_VALUE"); // Get String
+mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
 </pre>
 
 ##Demo
@@ -18,10 +18,11 @@ mPreferences.getString("STRING_KEY", mEditor"STRING_DEF_VALUE"); // Get String
  - Can be used beside [SharedPreferences][6] without any conflict.
  - Usage of <b>deprecated</b> methods throws <u>*InstantiationError*</u>.
  - <kbd>SimpleSharedPreferences#apply()</kbd> is available only after **<u>API-9</u>**
+ - All Methods in `SharedPreferences` & `SharedPreferences.Editor` are available in `SimpleSharedPreferences`.
 
 ## Why?
- - Was bored of using  [SharedPreferences.edit()][2] and [Editor.commit()][3] every time to push data into [SharedPreferences][1]
- - **[putStringSet][4] /  [getStringSet][5]** can be used pre API level 11.
+ - Was bored of using  [SharedPreferences.edit()][2] and [Editor.commit()][3] every time to push data into SharedPreferences.
+ - **[putStringSet][4] /  [getStringSet][5]** can be used <kbd>**pre API level 11**</kbd>.
  - Throws Exact **Exception** when Wrong Key is passed.
  - To set **"STRING_VALUE"** & **50**(INT_VALUE) Seperately in SharedPreferences.
 
@@ -29,15 +30,15 @@ mPreferences.getString("STRING_KEY", mEditor"STRING_DEF_VALUE"); // Get String
 // Old boring code
 SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 SharedPreferences.Editor mEditor = mPreferences.edit();
-mEditor.putString("STRING_KEY", "STRING_VALUE"); // <-- mEditor
-mEditor.commit(); // <-- mEditor
+mEditor.putString("STRING_KEY", "STRING_VALUE"); // mEditor
+mEditor.commit(); // mEditor
 ...
 ...
 ...
-mEditor.putInt("INTEGER_KEY", 50); // <-- mEditor
-mEditor.commit(); // <-- mEditor
+mEditor.putInt("INTEGER_KEY", 50); // mEditor
+mEditor.commit(); // mEditor
 ...
-mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // <-- mPreferences
+mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
 ...
 </pre>
 
@@ -65,7 +66,6 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // <-- mPreferences
 	See the License for the specific language governing permissions and
 	limitations under the License.
 	
- [0]: #	
  [1]: http://developer.android.com/reference/android/content/SharedPreferences.html "SharedPreferences"
  [2]: http://developer.android.com/reference/android/content/SharedPreferences.html#edit%28%29
  [3]: http://developer.android.com/reference/android/content/SharedPreferences.Editor.html#commit%28%29
@@ -75,4 +75,4 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // <-- mPreferences
  [7]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/
  [8]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/bin/
  [9]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java "Sample for SimpleSharedPreferences"
- [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/src/bin/
+ [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/bin
