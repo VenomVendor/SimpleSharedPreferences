@@ -1,27 +1,37 @@
 # Android SimpleSharedPreferences
-Use SimpleSharedPreferences to avoid unnecessary code while writing and fetching from [SharedPreferences][1]
+Use *SimpleSharedPreferences* to avoid unnecessary code while **writing** and **fetching** from [SharedPreferences][1]
 
 ## Usage
 Import [library][7], or add any one [*.jar][8] into `/libs`
-<pre>
-SimpleSharedPreferences mPreferences = new SimpleSharedPreferences(getApplicationContext());
+<pre>SimpleSharedPreferences mPreferences = new SimpleSharedPreferences(getApplicationContext());
 mPreferences.putString("STRING_KEY", "STRING_VALUE");  // Put String
 mPreferences.putInt("INTEGER_KEY", 50);  // Put Int
 mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
+</pre>
+
+##Error
+Throws `ClassCastException` when wrong key is passed
+<pre>mPreferences.getString("INTEGER_KEY", "STRING_DEF_VALUE"); // Get String with Integer Key</pre>
+<pre>
+Error:
+==========================================================
+ClassCastException : INTEGER_KEY's value is not a string
+========================================================== 
 </pre>
 
 ##Demo
 [SimpleSharedPreferencesDemo.Java][9] <br>
 [Sample.apk][10]
 
-### Other Methods
-[`public boolean incrementAppOpenedCount()`][11] // Increment App opened count
+### Other APIs
+<pre>public boolean incrementAppOpenedCount() // Increment App opened count
 
-[`public int getAppOpenedCount()`][12] // Get the number of times app opened
+public int getAppOpenedCount() // Get the number of times app opened
 
-`public boolean isLogEnabled()` // Log Status
+public boolean isLogEnabled() // Log Status
 
-`public void setLogEnabled(boolean enableLog)` // default `false`
+public void setLogEnabled(boolean enableLog) // default is false
+</pre>
 
 ###Note
  - Can be used beside [SharedPreferences][6] without any conflict.
@@ -33,10 +43,9 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
  - Was bored of using  [SharedPreferences.edit()][2] and [Editor.commit()][3] every time to push data into SharedPreferences.
  - **[putStringSet][4] /  [getStringSet][5]** can be used <kbd>**pre API level 11**</kbd>.
  - Throws Exact **Exception** when Wrong Key is passed.
+ - Includes API to get the number of times App was opened.
  - To set **"STRING_VALUE"** & **50**(INT_VALUE) Seperately in SharedPreferences.
-
-<pre>
-// Old boring code
+<pre>// Old boring code
 SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 SharedPreferences.Editor mEditor = mPreferences.edit();
 mEditor.putString("STRING_KEY", "STRING_VALUE"); // mEditor
@@ -85,5 +94,3 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
  [8]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/bin/
  [9]: https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L40 "Sample for SimpleSharedPreferences of all available methods"
  [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/bin "Install for usage reference"
-[11]:https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L103
-[12]:https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L193
