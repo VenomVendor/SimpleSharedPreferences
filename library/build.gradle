@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    lintOptions {
+        abortOnError rootProject.ext.abortOnError
+    }
+
+    buildTypes {
+        release {
+            versionNameSuffix rootProject.ext.RELEASE_SUFFIX
+            minifyEnabled rootProject.ext.minifyEnabled
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            versionNameSuffix rootProject.ext.DEBUG_SUFFIX
+            minifyEnabled false
+        }
+    }
+}
+
+task(makeJar) << {
+
+}
+
+import com.android.builder.core.BuilderConstants
+
+// Generate jar.
+android.libraryVariants.all { variant ->
+    if (name.equals(BuilderConstants.DEBUG)) {
+        return; // Skip debug builds.
+    }
+
+    String taskName = "makeJar${variant.name.capitalize()}"
+    task(taskName, type: Copy) {
+        String archiveName = "${project.name}-${variant.name}"
+        String outputDir = "${buildDir.getPath()}/outputs"
+        dependsOn "assemble${variant.name.capitalize()}"
+
+        copy {
+            from(zipTree("${outputDir}/aar/${archiveName}.aar"))
+            into("${outputDir}/jar")
+            include("classes.jar")
+            rename("classes.jar", "${archiveName}-${variant.mergedFlavor.versionName}.jar")
+        }
+
+        if (rootProject.ext.includeLibrary) {
+            println(new File("sample/libs").deleteDir())
+        } else {
+            copy {
+                from "${outputDir}/jar/${archiveName}-${variant.mergedFlavor.versionName}.jar"
+                into "../sample/libs"
+            }
+        }
+    }
+
+    makeJar.dependsOn tasks[taskName]
+}
