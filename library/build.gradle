@@ -46,19 +46,21 @@ android.libraryVariants.all { variant ->
         String outputDir = "${buildDir.getPath()}/outputs"
         dependsOn "assemble${variant.name.capitalize()}"
 
-        copy {
-            from(zipTree("${outputDir}/aar/${archiveName}.aar"))
-            into("${outputDir}/jar")
-            include("classes.jar")
-            rename("classes.jar", "${archiveName}-${variant.mergedFlavor.versionName}.jar")
-        }
-
-        if (rootProject.ext.includeLibrary) {
-            println(new File("sample/libs").deleteDir())
-        } else {
+        if (new File("${outputDir}/aar/${archiveName}.aar").exists()) {
             copy {
-                from "${outputDir}/jar/${archiveName}-${variant.mergedFlavor.versionName}.jar"
-                into "../sample/libs"
+                from(zipTree("${outputDir}/aar/${archiveName}.aar"))
+                into("${outputDir}/jar")
+                include("classes.jar")
+                rename("classes.jar", "${archiveName}-${variant.mergedFlavor.versionName}.jar")
+            }
+
+            if (rootProject.ext.includeLibrary) {
+                println(new File("sample/libs").deleteDir())
+            } else {
+                copy {
+                    from "${outputDir}/jar/${archiveName}-${variant.mergedFlavor.versionName}.jar"
+                    into "../sample/libs"
+                }
             }
         }
     }
