@@ -1,7 +1,5 @@
+package com.venomvendor.sample.simplesharedpreferences;
 
-package vee.android.sample;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -11,33 +9,65 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vee.android.lib.SimpleSharedPreferences;
-import vee.android.sample.Constants.KEYS;
+import com.venomvendor.library.SimpleSharedPreferences;
+import com.venomvendor.sample.simplesharedpreferences.utils.Constants.KEYS;
 
-import java.util.HashSet;
-import java.util.Locale;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 public class SimpleSharedPreferencesDemo extends Activity {
 
-    private static SimpleSharedPreferences mPreferences;
-    @SuppressLint("DefaultLocale")
-    private final String tag = getClass().getSimpleName().toUpperCase(Locale.ENGLISH);
-    private final static String mValue = "Value in Pref : ";
-    private static TextView mPrefResult;
+    private final static String VALUE_IN_PREF = "Value in Pref : ";
+    private static final String TAG = SimpleSharedPreferencesDemo.class.getSimpleName();
+    private SimpleSharedPreferences mPreferences;
+    private TextView mPrefResult;
+    private OnSharedPreferenceChangeListener mPreferenceChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPrefResult = (TextView) findViewById(R.id.pref_result);
 
+        initViews();
+
+        initListeners();
+
+        addData();
+    }
+
+    private void initViews() {
+        mPrefResult = (TextView) findViewById(R.id.pref_result);
+    }
+
+    private void initListeners() {
         /*
          * Initialization
          */
-        mPreferences = new SimpleSharedPreferences(getApplicationContext());
+        mPreferences = SimpleSharedPreferences.getInstance();
+
+        mPreferenceChangeListener = new OnSharedPreferenceChangeListener() {
+
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                final Map<String, ?> map = sharedPreferences.getAll();
+
+                for (final Entry<String, ?> entry : map.entrySet()) {
+                    final String entryKey = entry.getKey();
+                    final Object value = entry.getValue();
+                    if (entryKey.equalsIgnoreCase(key)) {
+                        Log.d(TAG, "New/Updated Preferences key : " + entryKey + " , " + "value : " + value.toString());
+                        break;
+                    }
+                }
+
+            }
+        };
+    }
+
+    private void addData() {
 
         /*
          * Put Boolean
@@ -49,25 +79,15 @@ public class SimpleSharedPreferencesDemo extends Activity {
          */
         mPreferences.putFloat(KEYS.VEE_FLOAT, 2.3f);
 
-        /*
-         * Put Integer
-         */
-        mPreferences.putInt(KEYS.VEE_INT, 50);
-
-        /*
-         * Put Long
-         */
-        mPreferences.putLong(KEYS.VEE_LONG, 12345678910L);
-
-        /*
-         * Put String
-         */
-        mPreferences.putString(KEYS.VEE_STRING, tag);
+        /* put multiple key value pairs */
+        mPreferences.putInt(KEYS.VEE_INT, 50) /* Put Integer */
+                .putLong(KEYS.VEE_LONG, 12345678910L) /* Put Long */
+                .putString(KEYS.VEE_STRING, TAG); /* Put String */
 
         /*
          * Create String set
          */
-        final Set<String> mStringSet = new HashSet<String>();
+        final Set<String> mStringSet = new LinkedHashSet<String>();
         for (int i = 0; i < 10; i++) {
             mStringSet.add("String" + i);
         }
@@ -87,55 +107,41 @@ public class SimpleSharedPreferencesDemo extends Activity {
          * Update `String` to see if "OnSharedPreferenceChangeListener" is triggered
          */
         mPreferences.putString(KEYS.VEE_STRING, "UPDATED String");
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPreferences.incrementAppOpenedCount();
-    }
-
-    /**
-     * Increment App Opened COunt
-     */
-    public void incrementAppOpenedCount(View v) {
-        mPreferences.incrementAppOpenedCount();
     }
 
     /**
      * Get Boolean
      */
     public void getBoolean(View v) {
-        setText(mValue + mPreferences.getBoolean(KEYS.VEE_BOOL, false));
+        setText(VALUE_IN_PREF + mPreferences.getBoolean(KEYS.VEE_BOOL, false));
     }
 
     /**
      * Get Float
      */
     public void getFloat(View v) {
-        setText(mValue + mPreferences.getFloat(KEYS.VEE_FLOAT, 0f));
+        setText(VALUE_IN_PREF + mPreferences.getFloat(KEYS.VEE_FLOAT, 0f));
     }
 
     /**
      * Get Integer
      */
     public void getInt(View v) {
-        setText(mValue + mPreferences.getInt(KEYS.VEE_INT, -1));
+        setText(VALUE_IN_PREF + mPreferences.getInt(KEYS.VEE_INT, -1));
     }
 
     /**
      * Get Long
      */
     public void getLong(View v) {
-        setText(mValue + mPreferences.getLong(KEYS.VEE_LONG, -1L));
+        setText(VALUE_IN_PREF + mPreferences.getLong(KEYS.VEE_LONG, -1L));
     }
 
     /**
      * Get String
      */
     public void getString(View v) {
-        setText(mValue + mPreferences.getString(KEYS.VEE_STRING, ""));
+        setText(VALUE_IN_PREF + mPreferences.getString(KEYS.VEE_STRING, ""));
     }
 
     /**
@@ -147,13 +153,13 @@ public class SimpleSharedPreferencesDemo extends Activity {
         if (mSet != null) {
             final StringBuilder mBuilder = new StringBuilder();
             for (final String string : mSet) {
-                Log.w(tag, string);
-                mBuilder.append("\n\n " + string);
+                Log.w(TAG, string);
+                mBuilder.append("\n\n ")
+                        .append(string);
             }
-            setText(mValue + mBuilder.toString());
-        }
-        else {
-            setText(mValue + "null");
+            setText(VALUE_IN_PREF + mBuilder.toString());
+        } else {
+            setText(VALUE_IN_PREF + "null");
         }
     }
 
@@ -166,9 +172,12 @@ public class SimpleSharedPreferencesDemo extends Activity {
 
         final StringBuilder mBuilder = new StringBuilder();
         for (final Entry<String, ?> entry : map.entrySet()) {
-            final String keyx = entry.getKey();
+            final String entryKey = entry.getKey();
             final Object value = entry.getValue();
-            mBuilder.append("\n\nPrefrences key : " + keyx + " , " + "value : " + value.toString());
+            mBuilder.append("\n\nPreferences key : ")
+                    .append(entryKey).append(" , ")
+                    .append("value : ")
+                    .append(value.toString());
         }
         setText(mBuilder.toString());
     }
@@ -180,8 +189,7 @@ public class SimpleSharedPreferencesDemo extends Activity {
     public void getWrongData(View v) {
         try {
             mPreferences.getBoolean(KEYS.VEE_STRING, false);
-        }
-        catch (final ClassCastException e) {
+        } catch (final ClassCastException e) {
             setText("Error:" + e.getMessage());
         }
     }
@@ -190,7 +198,7 @@ public class SimpleSharedPreferencesDemo extends Activity {
      * Get App Opened Count
      */
     public void getAppOpenedCount(View v) {
-        setText(mValue + mPreferences.getAppOpenedCount());
+        setText(VALUE_IN_PREF + mPreferences.getAppOpenedCount());
     }
 
     /**
@@ -207,33 +215,14 @@ public class SimpleSharedPreferencesDemo extends Activity {
         mPreferences.unregisterOnSharedPreferenceChangeListener(mPreferenceChangeListener);
     }
 
-    private final OnSharedPreferenceChangeListener mPreferenceChangeListener = new OnSharedPreferenceChangeListener() {
-
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences , String key) {
-
-            final Map<String, ?> map = sharedPreferences.getAll();
-
-            for (final Entry<String, ?> entry : map.entrySet()) {
-                final String keyx = entry.getKey();
-                final Object value = entry.getValue();
-                if (keyx.equalsIgnoreCase(key)) {
-                    Log.w(tag, "New/Updated Prefrences key : " + keyx + " , " + "value : " + value.toString());
-                    break;
-                }
-            }
-
-        }
-    };
-
     /**
      * Set's Preferences Value in UI
      *
-     * @param text
+     * @param text data
      */
     private void setText(final String text) {
         mPrefResult.setText(text);
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-        Log.v(tag, mValue + text);
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, VALUE_IN_PREF + text);
     }
 }

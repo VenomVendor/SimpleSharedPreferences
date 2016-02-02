@@ -6,12 +6,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SimpleSharedPreferencesDemo" >
+    tools:context=".SimpleSharedPreferencesDemo">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -29,14 +29,14 @@
             android:layout_marginTop="8dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="2" >
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/button_margin"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:layout_width="fill_parent"
@@ -65,12 +65,6 @@
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="incrementAppOpenedCount"
-                    android:text="@string/increment_app" />
-
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
                     android:onClick="Clear"
                     android:text="@string/clear" />
             </LinearLayout>
@@ -80,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/button_margin"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:layout_width="fill_parent"
@@ -104,8 +98,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="getWrongData"
-                    android:textColor="#F00"
-                    android:text="@string/get_wrong" />
+                    android:text="@string/get_wrong"
+                    android:textColor="#F00" />
 
                 <Button
                     android:layout_width="fill_parent"

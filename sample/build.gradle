@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    buildTypes {
+        release {
+            versionNameSuffix rootProject.ext.RELEASE_SUFFIX
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
+        }
+        debug {
+            versionNameSuffix rootProject.ext.DEBUG_SUFFIX
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
+        }
+    }
+}
+
+dependencies {
+    if (rootProject.ext.includeLibrary) {
+        println("compile project(':library')")
+        compile project(':library')
+    } else {
+        println("fileTree(dir: 'libs', include: '*.jar')")
+        compile fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+
+
