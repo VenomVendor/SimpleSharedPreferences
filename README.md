@@ -2,8 +2,9 @@
 Use *SimpleSharedPreferences* to avoid unnecessary code while **writing** and **fetching** from [SharedPreferences][1]
 
 ## Usage
-Import [library][7], or add any one [*.jar][8] into `/libs`
-<pre>SimpleSharedPreferences.initialize(this);
+Import any one [*.jar][7] into `/libs`
+<pre>SimpleSharedPreferences.initialize(this); // from Application.
+
 SimpleSharedPreferences mPreferences = SimpleSharedPreferences.getInstance();
 mPreferences.putString("STRING_KEY", "STRING_VALUE");  // Put String
 mPreferences.putInt("INTEGER_KEY", 50);  // Put Int
@@ -29,9 +30,9 @@ ClassCastException : INTEGER_KEY's value is not a string
 
 public int getAppOpenedCount() // Get the number of times app opened
 
-public boolean isLogEnabled() // Log Status
+public boolean isLogEnabled() // default is false
 
-public void enableLog(boolean enableLog) // default is false
+public void enableLog(boolean enableLog) // Update Log Status
 </pre>
 
 ###Note
@@ -69,7 +70,7 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
 ###### Author : [VenomVendor](https://www.google.com/#newwindow=1&q=VenomVendor "Find me on Google")
 
 #License
-	Copyright (C) 2014 VenomVendor <info@VenomVendor.com>
+	Copyright (C) 2016 VenomVendor <info@VenomVendor.com>
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -89,7 +90,6 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
  [4]: http://developer.android.com/reference/android/content/SharedPreferences.Editor.html#putStringSet%28java.lang.String,%20java.util.Set%3Cjava.lang.String%3E%29 "Added in API level 11"
  [5]: http://developer.android.com/reference/android/content/SharedPreferences.html#getStringSet%28java.lang.String,%20java.util.Set%3Cjava.lang.String%3E%29 "Added in API level 11"
  [6]: http://developer.android.com/training/basics/data-storage/shared-preferences.html#WriteSharedPreference "Using Shared Preferences"
- [7]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/
- [8]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/library/bin/
- [9]: https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/vee/android/sample/SimpleSharedPreferencesDemo.java#L40 "Sample for SimpleSharedPreferences of all available methods"
- [10]: https://github.com/VenomVendor/SimpleSharedPreferences/tree/master/sample/bin "Install for usage reference"
+ [7]: https://github.com/VenomVendor/SimpleSharedPreferences/releases/latest
+ [9]: https://github.com/VenomVendor/SimpleSharedPreferences/blob/master/sample/src/main/java/com/venomvendor/sample/simplesharedpreferences/SimpleSharedPreferencesDemo.java#L48 "Sample for SimpleSharedPreferences of all available methods"
+ [10]: https://github.com/VenomVendor/SimpleSharedPreferences/releases/latest "Install for usage reference"
