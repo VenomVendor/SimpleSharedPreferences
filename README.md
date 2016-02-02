@@ -3,7 +3,8 @@ Use *SimpleSharedPreferences* to avoid unnecessary code while **writing** and **
 
 ## Usage
 Import [library][7], or add any one [*.jar][8] into `/libs`
-<pre>SimpleSharedPreferences mPreferences = new SimpleSharedPreferences(getApplicationContext());
+<pre>SimpleSharedPreferences.initialize(this);
+SimpleSharedPreferences mPreferences = SimpleSharedPreferences.getInstance();
 mPreferences.putString("STRING_KEY", "STRING_VALUE");  // Put String
 mPreferences.putInt("INTEGER_KEY", 50);  // Put Int
 mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE"); // Get String
@@ -24,19 +25,17 @@ ClassCastException : INTEGER_KEY's value is not a string
 [Sample.apk][10]
 
 ### Other APIs
-<pre>public boolean incrementAppOpenedCount() // Increment App opened count
+<pre>
 
 public int getAppOpenedCount() // Get the number of times app opened
 
 public boolean isLogEnabled() // Log Status
 
-public void setLogEnabled(boolean enableLog) // default is false
+public void enableLog(boolean enableLog) // default is false
 </pre>
 
 ###Note
  - Can be used beside [SharedPreferences][6] without any conflict.
- - Usage of <b>deprecated</b> methods throws <u>*InstantiationError*</u>.
- - <kbd>SimpleSharedPreferences#apply()</kbd> is available only after **<u>API-9</u>**
  - All Methods in `SharedPreferences` & `SharedPreferences.Editor` are available in `SimpleSharedPreferences`.
 
 ## Why?
@@ -62,7 +61,7 @@ mPreferences.getString("STRING_KEY", "STRING_DEF_VALUE");  // mPreferences
 
 
 ### imports
-	import vee.android.lib.SimpleSharedPreferences;
+	import com.venomvendor.library.SimpleSharedPreferences;
 
 ### ProGuard
 	-keepclassmembers class * implements android.content.SharedPreferences.** { *; }
