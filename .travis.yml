@@ -2,22 +2,14 @@ language: android
 
 android:
   components:
-    # use the latest revision of Android SDK Tools
     - platform-tools
-    - tools
+    - build-tools-23.0.1
+    - android-23
 
 branches:
   only:
     - master
     - develop
-
-before_install:
-  # for gradle output style
-  - export TERM=dumb
-
-  # environment info
-  - gradle -v
-  - uname -a
 
 script:
   - ./gradlew clear makeJar assembleDefault
