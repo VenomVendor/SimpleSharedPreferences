@@ -28,6 +28,13 @@ android {
     }
 }
 
+task(clear) << {
+    new File("build").deleteDir()
+    new File("library/build").deleteDir()
+    new File("sample/build").deleteDir()
+    new File("sample/libs").deleteDir()
+}
+
 task(makeJar) << {
 
 }
