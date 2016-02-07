@@ -1,6 +1,8 @@
 # Android SimpleSharedPreferences
 Use *SimpleSharedPreferences* to avoid unnecessary code while **writing** and **fetching** from [SharedPreferences][1]
 
+[![Build Status](https://travis-ci.org/VenomVendor/SimpleSharedPreferences.svg?branch=master)](https://travis-ci.org/VenomVendor/SimpleSharedPreferences)
+ 
 ## Usage
 Import any one [*.jar][7] into `/libs`
 <pre>SimpleSharedPreferences.initialize(this); // from Application.
