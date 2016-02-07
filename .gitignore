@@ -8,6 +8,7 @@ gen/
 doc/
 libs/
 */res/.githolder
+!/gradle/wrapper/gradle-wrapper.jar
 
 ### Android template
 # Built application files
